@@ -32,16 +32,17 @@ model Stream{
   url String
   extractedId String
   type Type
-  active Boolean @default(true)
+  active Boolean @default(false)
     userId String
   upvotes Upvote[]
       user User @relation(fields: [userId],references: [id])
-
-      
+    title String @default("")
+    thumbnail String @default("")
 }
 
 model Upvote{
     id String @id @default(cuid())
+    downVote Int?   
     userId String
     StreamerId String
     user User @relation(fields: [userId],references: [id])

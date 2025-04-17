@@ -1,13 +1,17 @@
 'use client'
 
+import { Button } from "@/components/ui/button"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 
 
 export function Navbar(){
 const session = useSession()
+const router =  useRouter()
 const Links = [
 
   {
@@ -32,11 +36,11 @@ const Links = [
 }]
 
 return(<>
-<div className="h-20 w-full bg-neutral-200  flex justify-around items-center  ">
+<div className="h-15 w-full bg-black  flex justify-around items-center sticky inset-0     ">
 
 
 <div>
-  <Image className="rounded-2xl" height={30} width={60} alt="logo1" src={'/logo.png'}></Image>
+  <Image className="rounded-2xl" height={30} width={40} alt="logo1" src={'/logo.png'}></Image>
 
 </div>
 
@@ -44,13 +48,15 @@ return(<>
 <div className="space-x-18 flex items-center justify-center ">
 
 
-{Links.map((itm,index)=>(<Link key={index} href={itm.src} className="text-neutral-700 text-xl font-semibold ">{itm.link}</Link>))}
+{Links.map((itm,index)=>(<Link key={index} href={itm.src} className="text-neutral-400 text-[13px] ">{itm.link}</Link>))}
 </div>
 
 <div className="space-x-3">
-  {session.data?.user && <button onClick={()=>signOut()} className="text-neutral-50 p-2 px-4 rounded-xl text-xl bg-neutral-600">Sign Out</button>}
-  {!session.data?.user &&  <button onClick={()=>signIn()} className="text-neutral-600 p-2 px-4 rounded-xl text-xl border-2 border-neutral-600 hover:cursor-pointer hover:border-neutral-950 transition-transform hover:text-neutral-950">Login</button> }
- 
+  {session.data?.user &&<Button size={'default'}  variant={'secondary'} onClick={()=>signOut()}>Signout</Button>}
+  {!session.data?.user && <Button size={'default'} variant={'outline'} onClick={()=>signIn()}>Login</Button> }
+  
+
+
 </div>
 
 
